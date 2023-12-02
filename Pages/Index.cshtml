@@ -1,0 +1,36 @@
+﻿@page
+@model IndexModel
+
+<h1>Młody G Belmondziarz</h1>
+
+<div>
+	@foreach (var sound in Model.Sounds)
+	{
+		<div class="sound-entry">
+			<audio controls="controls">
+				<source src="@Url.Content(sound.FilePath)" type="audio/mp3"/>
+				Your browser does not support the audio element.
+			</audio>
+			@sound.Name
+		</div>
+	}
+</div>
+
+<style>
+	.sound-entry {
+		margin-bottom: 20px;
+	}
+</style>
+
+@section Scripts
+{
+	<script>
+		document.querySelectorAll('.play-button').forEach(function (button) {
+			button.addEventListener('click', function () {
+				var soundUrl = this.getAttribute('data-sound-url')
+				var audio = new Audio(soundUrl)
+				audio.play()
+			})
+		})
+	</script>
+}
